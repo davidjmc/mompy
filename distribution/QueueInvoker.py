@@ -10,8 +10,6 @@ from messages.MessageSAM import MessageSAM
 from messages.ReplyBody import ReplyBody
 from messages.ReplyHeader import ReplyHeader
 
-print("I'm QueueInvoker!")
-
 
 def i_posinvp(miop: MIOP):
     header: MIOPHeader = miop.header

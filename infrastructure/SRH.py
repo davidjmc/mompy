@@ -22,23 +22,15 @@ server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 connection = None
 
 
-# print("Socket Created!")
-
-
 def connection_thread(conn, ip, p):
-    # print("Connected by " + ip + ":" + p)
-
     is_active = True
 
     while is_active:
         data = conn.recv(1024)
-        # print('Received {!r}'.format(data))
-        # data_size = sys.getsizeof(data)
 
         if not data:
             break
 
-        # print('Sending data to the Queue Manager')
         msg: MIOP = unmarshall(data)
         _r = QueueInvoker.i_posinvp(msg)
 
@@ -67,7 +59,7 @@ def i_preinvr():
 
     # Listen for accepting connections
     server.listen()
-    print("Socket now listening")
+    print("SRH Socket now listening")
 
     while True:
 
@@ -81,38 +73,11 @@ def i_preinvr():
 
             Thread(target=connection_thread, args=(connection, ip_client, port_client)).start()
 
-            # Receive the data in small chunks
-            # while True:
-            # data = connection.recv(1024)
-            # print('Received {!r}'.format(data))
-
-            # if data:
-            #   print('Sending data to the Queue Manager')
-            #  msg: MIOP = unmarshall(data)
-            # invoker_receive(msg)
-
-            # else:
-            #   print('no data from', client_address)
-            #  break
-
         except:
             print("Thread did not start.")
             traceback.print_exc()
 
-    # server.close()
 
-
-def i_posterr(msg: MessageSAM):
+def i_posterr():
     pass
-    # _miop: MIOP = msg.payload
 
-    # header = _miop.header
-    # body: MIOPBody = _miop.body
-
-    # reply_header: ReplyHeader = body.requestHeader
-    # reply_body: ReplyBody = body.requestBody
-
-    # print("SRH:: ")
-    # print(header.magic)
-    # print(reply_header.status)
-    # print(reply_body.reply)

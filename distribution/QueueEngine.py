@@ -15,19 +15,20 @@ subscribers = {}
 def publish(topic, msg_pub):
     if topic in topics.keys():
         messages = topics[topic]
-        if len(messages) < 10:
-            #messages.append(msg_pub)
-            messages.insert(0, msg_pub)
+        if len(messages) < 20:
+            messages.append(msg_pub)
+            #messages.insert(0, msg_pub)
             topics[topic] = messages
             r = True
         else:
+            topics[topic] = messages
             r = False
     else:
         topics[topic] = [msg_pub]
         r = True
 
     # print(topics.keys())
-    print(topics[topic])
+    # print(len(topics[topic]))
     # print("publish " + str(r))
     return r
 
@@ -69,7 +70,8 @@ def i_publish(invocation: Invocation):
     # msg = MessageSAM(_ter)
     # QueueInvoker.i_posterr(msg)
 
-    i_notify(topic_tobe_published, msg_tobe_notified)
+    if r:
+        i_notify(topic_tobe_published, msg_tobe_notified)
 
     return r
 

@@ -1,9 +1,9 @@
-from common import HandlerNotify
 from distribution import Requestor
 from messages.Invocation import Invocation
 from messages.MessageSAM import MessageSAM
 from messages.MessageMOM import MessageMOM
 from distribution.Header import Header
+from common.Handler import Handler
 
 handlers = {}
 
@@ -33,6 +33,8 @@ def consumer(_p1):
 
 
 def subscribe(_p1):
+
+    global handler
     _p2 = '127.0.0.1'
     _p3 = 64000
     _args = [_p1, _p2, _p3]
@@ -49,12 +51,16 @@ def subscribe(_p1):
 
     # print(_r)
 
+    handler = Handler(_p2, _p3)
+
     if handlers.get(_p1) is None:
+        handlers[_p1] = handler
         # handlers[_p1] = HandlerNotify(_p2, _p3)
-        handlers[_p1] = (_p2, _p3)
+        # handlers[_p1] = (_p2, _p3)
 
     # handler: HandlerNotify = handlers[_p1]
-    msg = HandlerNotify.start_handler(handlers[_p1])
+    # HandlerNotify.start_handler()
     # msg = handler.start_handler()
+    handler.start_handler()
 
-    return msg, _r
+    return handler
