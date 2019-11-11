@@ -15,21 +15,22 @@ def notify_subscribers(subscribers, msg_tobe_notified):
     if subscribers is not None:
         for subscriber in subscribers:
             ip, port = subscriber
-            print(ip)
-            print(port)
-            print(msg_tobe_notified)
+            # print(ip)
+            # print(port)
+            # print(msg_tobe_notified)
 
             c = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             host = (str(ip), int(port))
 
         try:
             # Connect the socket to the port where the server is listening
-            print('Connecting to {} port {}'.format(*host))
+            # print('Connecting to {} port {}'.format(*host))
             c.connect(host)
 
             # Send data
             data = marshall(msg_tobe_notified)
             c.sendall(data)
+            c.close()
 
 
         except:

@@ -25,7 +25,7 @@ def i_posinvp(msg: MessageSAM):
 
     try:
         # Connect the socket to the port where the server is listening
-        print('Connecting to {} port {}'.format(*addr))
+        # print('Connecting to {} port {}'.format(*addr))
         client.connect(addr)
 
         # Send data
@@ -35,7 +35,7 @@ def i_posinvp(msg: MessageSAM):
         _msg = client.recv(1024)
         d: MessageSAM = unmarshall(_msg)
         _r: QueueTermination = d.payload
-        print(d.payload)
+        # print(d.payload)
 
 
     except:

@@ -5,9 +5,12 @@ import traceback
 from threading import Thread
 from common.Marshaller import unmarshall
 
+message: None
+
 
 def handler_thread(self, conn, ip, port):
     is_active = True
+    global message
 
     while is_active:
         data = conn.recv(1024)
@@ -17,9 +20,9 @@ def handler_thread(self, conn, ip, port):
         if not data:
             break
 
-        result = unmarshall(data)
-        self.set_result(result)
-        print(result)
+        message = unmarshall(data)
+        self.set_result(message)
+        print("Subscribe Handler :: " + message)
 
     conn.close()
 
@@ -29,10 +32,11 @@ class Handler:
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
-    message: None
+    global message
     connection: None
 
-    def __init__(self, ip, port):
+    def __init__(self, ip, port, msg):
+        self.message = msg
         self._ip = ip
         self._port = port
 
@@ -66,6 +70,7 @@ class Handler:
             connection, cli = self.server.accept()
 
             try:
+                # print("Antes da Thread!")
                 ip, port = str(cli[0]), str(cli[1])
                 Thread(target=handler_thread, args=(self, connection, ip, port)).start()
 

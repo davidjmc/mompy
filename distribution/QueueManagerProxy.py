@@ -6,6 +6,7 @@ from distribution.Header import Header
 from common.Handler import Handler
 
 handlers = {}
+handler: None
 
 
 def pusblish(_p1, _p2):
@@ -33,10 +34,9 @@ def consumer(_p1):
 
 
 def subscribe(_p1):
-
-    global handler
     _p2 = '127.0.0.1'
     _p3 = 64000
+    _p4 = ""
     _args = [_p1, _p2, _p3]
     _req = MessageSAM(Invocation('127.0.0.1', 65000, "Subscribe", _args))
 
@@ -50,9 +50,8 @@ def subscribe(_p1):
     # _r = {"R"}
 
     # print(_r)
-
-    handler = Handler(_p2, _p3)
-
+    global handler
+    handler = Handler(_p2, _p3, _p4)
     if handlers.get(_p1) is None:
         handlers[_p1] = handler
         # handlers[_p1] = HandlerNotify(_p2, _p3)
@@ -63,4 +62,7 @@ def subscribe(_p1):
     # msg = handler.start_handler()
     handler.start_handler()
 
-    return handler
+
+def get_msg():
+    global handler
+    return handler.message

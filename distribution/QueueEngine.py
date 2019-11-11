@@ -107,9 +107,9 @@ def i_posinvp(msg: MessageSAM):
         msg, _r = SubscribeManager.i_posinvp(msg)
         msg, subs = SubscribeManager.i_posinvp(msg)
 
-        print("-------------------------------------------------------------------------------------------------")
-        print(msg.payload)
-        print(subs)
+        # print("-------------------------------------------------------------------------------------------------")
+        # print(msg.payload)
+        # print(subs)
 
         subscribers.update(subs)
         return _r

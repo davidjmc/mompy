@@ -13,7 +13,7 @@ class Publisher(object):
             msg = "msg [" + str(idx) + "]"
             r = QueueManagerProxy.pusblish("queue1", msg)
             print("Producer: " + msg + " " + str(r))
-            time.sleep(3)
+            time.sleep(4)
             idx = idx + 1
 
 

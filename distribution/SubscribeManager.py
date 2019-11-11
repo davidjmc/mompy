@@ -1,7 +1,6 @@
-from distribution.SubscriberRecord import SubscriberRecord
 from messages.MessageSAM import MessageSAM
 from messages.Invocation import Invocation
-from common.QueueTermination import QueueTermination
+
 
 subscribe_sm = {}
 
@@ -23,7 +22,7 @@ def subscribe(topic, ip, port):
         subs = (ip, port)
         subscribe_sm[topic] = [subs]
 
-    print(subscribe_sm[topic])
+    # print(subscribe_sm[topic])
     return r
 
 
